@@ -3,9 +3,9 @@
 cd $HOME
 
 # install system packages
-apt-get update
-apt-get upgrade
-apt-get install npm nodejs nginx certbot python3-certbot-nginx git
+apt-get -y update
+apt-get -y upgrade
+apt-get -y install npm nodejs nginx certbot python3-certbot-nginx git
 
 # install npm packages
 npm install apidocs pm2

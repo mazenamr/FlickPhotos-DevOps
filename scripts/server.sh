@@ -59,9 +59,9 @@ apt-get install -y mongodb-org
 systemctl start mongod
 systemctl enable mongod
 
-# # run deployment scripts
-# cd files/scripts
-# chmod +x *.sh
-# ./apidocs.sh
-# ./api.sh
-# ./web.sh
+# run deployment scripts
+cd files/scripts
+chmod +x *.sh
+./apidocs.sh
+./api.sh
+./web.sh

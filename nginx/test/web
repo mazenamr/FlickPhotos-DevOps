@@ -1,0 +1,14 @@
+server {
+	root /var/www/web;
+
+	index index.html index.htm;
+
+	server_name www.test.flick.photos test.flick.photos;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+	location /api {
+		alias /var/www/apidocs;
+	}
+}

@@ -1,0 +1,11 @@
+server {
+	root /var/www/files;
+
+	index index.html index.htm;
+
+	server_name files.flick.photos;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}

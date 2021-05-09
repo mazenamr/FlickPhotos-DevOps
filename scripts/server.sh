@@ -40,6 +40,12 @@ ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 # ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-available/files
 service nginx restart
 
+# disable firewall
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -F
+
 # setup ssl
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos"
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep -d "files.flick.photos" -d "mail.flick.photos"

@@ -8,7 +8,7 @@ apt-get -y upgrade
 apt-get -y install npm nodejs nginx certbot python3-certbot-nginx git
 
 # install npm packages
-npm install apidocs pm2
+npm install -g apidocs pm2
 
 # setup pm2
 pm2 startup systemd

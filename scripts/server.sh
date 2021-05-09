@@ -33,7 +33,7 @@ ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-available/api
 service nginx restart
 
 # setup ssl
-certbot --nginx -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "mail.flick.photos"
+# certbot --nginx -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "mail.flick.photos"
 
 # run deployment scripts
 cd files/scripts

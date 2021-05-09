@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cd $HOME
-[ ! -d "Flickr-Returns" ] && git clone git@github.com:MuhabCodes/Flickr-Returns.git
-cd Flickr-Returns
+[ ! -d "Flickr-Photos" ] && git clone git@github.com:MuhabCodes/Flickr-Photos.git
+cd Flickr-Photos
 git checkout main
 git pull origin
 cd Backend
@@ -13,4 +13,4 @@ elif [ ! -f "secret/.env" ]; then
     echo "secrets not found"
     exit
 fi
-npm install && pm2 delete server && pm2 start ./bin/server.js && pm2 save
+npm install && pm2 -s delete server && pm2 start bin/server.js && pm2 -s save

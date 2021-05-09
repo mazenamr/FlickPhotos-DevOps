@@ -13,11 +13,15 @@ npm install -g apidocs pm2
 # setup pm2
 pm2 startup systemd
 
+# setup ssh
+mkdir .ssh
+ssh-keyscan -H flick.photos >> .ssh/known_hosts
+ssh-keyscan -H github.com >> .ssh/known_hosts
+
 # get secrets
 git clone git@flick.photos:secrets.git
 
-# setup ssh
-mkdir .ssh
+# add ssh key
 cp secrets/ssh/* .ssh/
 chmod 600 .ssh/id_ed25519
 chmod 644 .ssh/id_ed25519.pub

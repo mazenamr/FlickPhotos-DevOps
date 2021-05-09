@@ -35,6 +35,14 @@ service nginx restart
 # setup ssl
 # certbot --nginx -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "mail.flick.photos"
 
+# setup mongodb
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+apt-get update
+apt-get install -y mongodb-org
+systemctl start mongod
+systemctl enable mongod
+
 # run deployment scripts
 cd files/scripts
 chmod +x *.sh

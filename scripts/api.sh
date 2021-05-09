@@ -18,5 +18,5 @@ elif [ ! -f "secret/.env" ]; then
 fi
 npm install
 pm2 -s delete server
-pm2 start bin/server.js
+pm2 -s start bin/server.js
 pm2 -s save

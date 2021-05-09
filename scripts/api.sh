@@ -5,7 +5,10 @@ cd $HOME
 cd Flickr-Photos
 git checkout main
 git pull origin
-cd Backend
+[ ! -d /var/www/api ] && mkdir /var/www/api
+rm -rf /var/www/api/*
+cp Backend/* /var/www/api/
+cd /var/www/api
 [ ! -d "secret" ] && mkdir secret
 if [ -f "$HOME/secrets/api/.env" ]; then
     cp $HOME/secrets/api/.env secret/.env

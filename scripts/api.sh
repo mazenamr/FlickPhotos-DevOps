@@ -16,4 +16,7 @@ elif [ ! -f "secret/.env" ]; then
     echo "secrets not found"
     exit
 fi
-npm install && pm2 -s delete server && pm2 start bin/server.js && pm2 -s save
+npm install
+pm2 -s delete server
+pm2 start bin/server.js
+pm2 -s save

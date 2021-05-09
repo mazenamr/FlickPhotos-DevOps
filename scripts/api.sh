@@ -7,7 +7,7 @@ git checkout main
 git pull origin
 [ ! -d /var/www/api ] && mkdir /var/www/api
 rm -rf /var/www/api/*
-cp Backend/* /var/www/api/
+cp -r Backend/* /var/www/api/
 cd /var/www/api
 [ ! -d "secret" ] && mkdir secret
 if [ -f "$HOME/secrets/api/.env" ]; then

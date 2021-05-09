@@ -7,11 +7,11 @@ apt-get update
 apt-get upgrade
 apt-get install npm nodejs nginx certbot python3-certbot-nginx git
 
-# setup pm2
-pm2 startup systemd
-
 # install npm packages
 npm install apidocs pm2
+
+# setup pm2
+pm2 startup systemd
 
 # get secrets
 git clone git@flick.photos:secrets.git
@@ -19,6 +19,8 @@ git clone git@flick.photos:secrets.git
 # setup ssh
 mkdir .ssh
 cp secrets/ssh/* .ssh/
+chmod 600 .ssh/id_ed25519
+chmod 644 .ssh/id_ed25519.pub
 ssh-add .ssh/id_ed25519
 
 # clone repos
@@ -33,7 +35,7 @@ ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-available/api
 service nginx restart
 
 # setup ssl
-# certbot --nginx -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "mail.flick.photos"
+# certbot --nginx -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "mail.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -

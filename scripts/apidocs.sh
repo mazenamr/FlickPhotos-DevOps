@@ -3,7 +3,8 @@
 cd $HOME
 [ ! -d "Flickr-Photos" ] && git clone git@github.com:MuhabCodes/Flickr-Photos.git
 cd Flickr-Photos
-git clean -nfd
+git clean -fxd
+git reset --hard
 git checkout docs_master
 git pull origin
 cd docs

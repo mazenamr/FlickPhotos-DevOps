@@ -10,3 +10,4 @@ npm install && npm run build
 [ ! -d /var/www/web ] && mkdir /var/www/web
 rm -rf /var/www/web/*
 cp -r build/* /var/www/web/
+pm2 -s serve build 4000 --spa

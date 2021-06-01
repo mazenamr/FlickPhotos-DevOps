@@ -27,6 +27,8 @@ echo "web test successfull" && rm $HOME/flags/web-test.lck
 rm -rf /var/www/web/*
 
 cp -r build/* /var/www/web/
+
+cd /var/www/web
 pm2 -s serve build 4000 --spa
 
 echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/web

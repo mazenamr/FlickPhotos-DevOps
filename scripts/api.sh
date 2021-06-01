@@ -37,7 +37,6 @@ rm -rf /var/www/api/*
 cp -r bin/* /var/www/api/
 
 cd /var/www/api
-
 pm2 -s delete server
 pm2 -s start server.js
 pm2 -s save

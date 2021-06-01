@@ -34,7 +34,7 @@ ssh-add .ssh/id_ed25519
 
 # clone repos
 git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
-git clone git@github.com:MuhabCodes/Flickr-Photos.git
+git clone git@github.com:MuhabCodes/Flickr-Photos.git main
 
 # setup nginx
 cp files/nginx/api /etc/nginx/sites-available/

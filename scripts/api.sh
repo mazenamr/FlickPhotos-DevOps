@@ -34,11 +34,11 @@ echo "api test successfull" && rm $HOME/flags/api-test.lck
 [ ! -d "/var/www/api" ] && mkdir /var/www/api
 rm -rf /var/www/api/*
 
-cp -r bin/* /var/www/api/
+cp -r ./* /var/www/api/
 
 cd /var/www/api
 pm2 -s delete server
-pm2 -s start server.js
+pm2 -s start ./bin/server.js
 pm2 -s save
 
 echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/api

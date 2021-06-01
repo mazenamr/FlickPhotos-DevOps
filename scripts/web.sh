@@ -1,5 +1,7 @@
 #!/bin/bash
 
+timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
+
 cd $HOME/main
 
 # setup
@@ -7,7 +9,7 @@ cd FrontEnd
 
 # build
 touch $HOME/flags/web-build.lck
-npm install && npm run build && rm $HOME/flags/web-build.lck
+npm install | tee -a "$HOME/logs/web/build_$timestamp" && npm run build | tee -a "$HOME/logs/web/build_$timestamp" && rm $HOME/flags/web-build.lck
 
 [ -f "$HOME/flags/web-build.lck" ] &&
     echo -e "Subject: Web Build Failed\nWeb build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
@@ -32,4 +34,4 @@ pm2 -s delete static-page-server-4000
 pm2 -s serve /var/www/web 4000 --spa
 pm2 -s save
 
-echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/web
+echo "Deployed at [$(TZ='Africa/Cairo' date)"] >> $HOME/logs/time/web

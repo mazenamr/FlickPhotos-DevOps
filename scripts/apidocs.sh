@@ -1,5 +1,7 @@
 #!/bin/bash
 
+timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
+
 cd $HOME/main
 
 # setup
@@ -10,7 +12,7 @@ rm -rf build/*
 
 # build
 touch $HOME/flags/apidocs-build.lck
-npm install && npx apidoc -e node_modules/ -o build/ && rm $HOME/flags/apidocs-build.lck
+npm install | tee -a "$HOME/logs/apidocs/build_$timestamp" && npx apidoc -e node_modules/ -o build/ | tee -a "$HOME/logs/apidocs/build_$timestamp" && rm $HOME/flags/apidocs-build.lck
 
 [ -f "$HOME/flags/apidocs-build.lck" ] &&
     echo -e "Subject: API Docs Build Failed\nAPI docs build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
@@ -31,4 +33,4 @@ rm -rf /var/www/apidocs/*
 
 cp -r build/* /var/www/apidocs/
 
-echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/apidocs
+echo "Deployed at [$(TZ='Africa/Cairo' date)]" >> $HOME/logs/time/apidocs

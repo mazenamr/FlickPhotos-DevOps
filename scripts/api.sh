@@ -1,5 +1,7 @@
 #!/bin/bash
 
+timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
+
 cd $HOME/main
 
 # setup
@@ -15,7 +17,7 @@ fi
 
 # build
 touch $HOME/flags/api-build.lck
-npm install && rm $HOME/flags/api-build.lck
+npm install | tee -a "$HOME/logs/api/build_$timestamp" && rm $HOME/flags/api-build.lck
 
 [ -f "$HOME/flags/api-build.lck" ] &&
     echo -e "Subject: API Build Failed\nAPI build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
@@ -41,4 +43,4 @@ pm2 -s delete server
 pm2 -s start ./bin/server.js
 pm2 -s save
 
-echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/api
+echo "Deployed at [$(TZ='Africa/Cairo' date)]" >> $HOME/logs/time/api

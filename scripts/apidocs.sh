@@ -21,7 +21,7 @@ npm install | tee -a "$HOME/logs/apidocs/build_$timestamp" && npx apidoc -e node
 # test
 touch $HOME/flags/apidocs-test.lck
 # no tests yet so just echo
-echo "api docs test successfull" && rm $HOME/flags/apidocs-test.lck
+echo "api docs test successfull" | tee -a "$HOME/logs/apidocs/test_$timestamp" && rm $HOME/flags/apidocs-test.lck
 
 [ -f "$HOME/flags/apidocs-test.lck" ] &&
     echo -e "Subject: API Docs Tests Failed\nAPI docs tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&

@@ -18,7 +18,7 @@ npm install | tee -a "$HOME/logs/web/build_$timestamp" && npm run build | tee -a
 # test
 touch $HOME/flags/web-test.lck
 # no tests yet so just echo
-echo "web test successfull" && rm $HOME/flags/web-test.lck
+echo "web test successfull" | tee -a "$HOME/logs/apidocs/test_$timestamp" && rm $HOME/flags/web-test.lck
 
 [ -f "$HOME/flags/web-test.lck" ] &&
     echo -e "Subject: Web Tests Failed\nWeb tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&

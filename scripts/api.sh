@@ -26,7 +26,7 @@ npm install | tee -a "$HOME/logs/api/build_$timestamp" && rm $HOME/flags/api-bui
 # test
 touch $HOME/flags/api-test.lck
 # no tests yet so just echo
-echo "api test successfull" && rm $HOME/flags/api-test.lck
+echo "api test successfull" | tee -a "$HOME/logs/api/test_$timestamp" && rm $HOME/flags/api-test.lck
 
 [ -f "$HOME/flags/api-test.lck" ] &&
     echo -e "Subject: API Tests Failed\nAPI tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&

@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  SetupSSH:
+  Deploy:
     runs-on: ubuntu-latest
 
     steps:

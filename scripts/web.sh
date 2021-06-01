@@ -29,4 +29,4 @@ rm -rf /var/www/web/*
 cp -r build/* /var/www/web/
 pm2 -s serve build 4000 --spa
 
-echo $(TZ='Africa/Cairo' date) >> $HOME/web
+echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/web

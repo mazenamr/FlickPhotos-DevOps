@@ -42,4 +42,4 @@ pm2 -s delete server
 pm2 -s start server.js
 pm2 -s save
 
-echo $(TZ='Africa/Cairo' date) >> $HOME/api
+echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/api

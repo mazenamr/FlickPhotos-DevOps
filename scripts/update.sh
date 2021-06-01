@@ -2,6 +2,8 @@
 
 cd $HOME
 
+[! -d "logs"] && mkdir logs
+
 [ ! -d "flags" ] && mkdir flags
 rm -rf flags/*
 

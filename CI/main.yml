@@ -1,5 +1,4 @@
-# CI/CD for the API
-name: API CI
+name: CI
 
 # Runs on pushes and pull requests on main
 on:
@@ -26,5 +25,17 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
+      - name: Update Server
+        run: ssh root@flick.photos "~/files/scripts/update.sh"
 
+      - name: Deploy API
+        run: ssh root@flick.photos "~/files/scripts/api.sh"
+
+      - name: Deploy API Docs
+        run: ssh root@flick.photos "~/files/scripts/api.sh"
+
+      - name: Deploy Web
+        run: ssh root@flick.photos "~/files/scripts/api.sh"

@@ -16,11 +16,11 @@ pm2 startup systemd
 # setup ssh
 mkdir .ssh
 chmod 700 .ssh
-ssh-keyscan -H flick.photos >> .ssh/known_hosts
+ssh-keyscan -H git.flick.photos >> .ssh/known_hosts
 ssh-keyscan -H github.com >> .ssh/known_hosts
 
 # get secrets
-git clone git@flick.photos:secrets.git
+git clone git@git.flick.photos:secrets.git
 
 # add ssh key
 cp secrets/ssh/* .ssh/

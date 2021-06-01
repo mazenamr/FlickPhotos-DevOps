@@ -5,7 +5,7 @@ cd $HOME
 cd Flickr-Photos
 git clean -fxd
 git reset --hard
-git checkout docs_master
+git checkout main
 git pull origin
 cd docs
 npm install

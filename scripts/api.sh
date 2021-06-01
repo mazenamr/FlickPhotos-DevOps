@@ -14,7 +14,7 @@ elif [ ! -f "secret/.env" ]; then
 fi
 
 # build
-touch $HOME/flags/web-build.lck
+touch $HOME/flags/api-build.lck
 npm install && rm $HOME/flags/api-build.lck
 
 [ -f "$HOME/flags/api-build.lck" ] && exit -1

@@ -67,7 +67,4 @@ systemctl enable mongod
 # run deployment scripts
 cd files/scripts
 chmod +x *.sh
-./update.sh
-./api.sh
-./apidocs.sh
-./web.sh
+./deploy.sh

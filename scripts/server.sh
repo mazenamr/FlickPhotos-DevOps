@@ -15,6 +15,7 @@ pm2 startup systemd
 
 # setup ssh
 mkdir .ssh
+chmod 700 .ssh
 ssh-keyscan -H flick.photos >> .ssh/known_hosts
 ssh-keyscan -H github.com >> .ssh/known_hosts
 
@@ -25,6 +26,7 @@ git clone git@flick.photos:secrets.git
 cp secrets/ssh/* .ssh/
 chmod 600 .ssh/id_ed25519
 chmod 644 .ssh/id_ed25519.pub
+cat .ssh/id_ed25519.pub >> .ssh/authorized_keys
 ssh-add .ssh/id_ed25519
 
 # clone repos
@@ -32,8 +34,8 @@ git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
 git clone git@github.com:MuhabCodes/Flickr-Photos.git
 
 # setup nginx
-# cp files/nginx/* /etc/nginx/sites-available/
-cp files/nginx/test/* /etc/nginx/sites-available/
+cp files/nginx/api /etc/nginx/sites-available/
+cp files/nginx/web /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 # ln -sf /etc/nginx/sites-available/mail /etc/nginx/sites-available/mail
@@ -47,9 +49,9 @@ iptables -P FORWARD ACCEPT
 iptables -F
 
 # setup ssl
-# certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos"
-# certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep -d "files.flick.photos" -d "mail.flick.photos"
-certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep -d "test.flick.photos" -d "www.test.flick.photos" -d "api.test.flick.photos"
+# certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos"
+# certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "files.flick.photos" -d "mail.flick.photos"
+certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -

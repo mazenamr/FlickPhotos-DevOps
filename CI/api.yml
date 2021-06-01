@@ -1,0 +1,30 @@
+# CI/CD for the API
+name: API CI
+
+# Runs on pushes and pull requests on main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H flick.photos >> .ssh/known_hosts
+          ssh-keyscan -H github.com >> .ssh/known_hosts
+          cp secrets/ssh/* .ssh/
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-add ~/.ssh/id_ed25519
+
+

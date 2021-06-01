@@ -11,4 +11,4 @@ cd docs
 npm install
 [ ! -d /var/www/apidocs ] && mkdir /var/www/apidocs
 rm -rf /var/www/apidocs/*
-npx apidoc -e node_modules/ -o /var/www/apidocs;
+npx apidoc -e node_modules/ -o /var/www/apidocs

@@ -17,14 +17,18 @@ fi
 touch $HOME/flags/api-build.lck
 npm install && rm $HOME/flags/api-build.lck
 
-[ -f "$HOME/flags/api-build.lck" ] && exit -1
+[ -f "$HOME/flags/api-build.lck" ] &&
+    echo -e "Subject: API Build Failed\nAPI build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
+    exit -1
 
 # test
 touch $HOME/flags/api-test.lck
 # no tests yet so just echo
 echo "api test successfull" && rm $HOME/flags/api-test.lck
 
-[ -f "$HOME/flags/api-test.lck" ] && exit -1
+[ -f "$HOME/flags/api-test.lck" ] &&
+    echo -e "Subject: API Tests Failed\nAPI tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
+    exit -1
 
 # deploy
 [ ! -d "/var/www/api" ] && mkdir /var/www/api
@@ -37,3 +41,5 @@ cd /var/www/api
 pm2 -s delete server
 pm2 -s start server.js
 pm2 -s save
+
+echo $(TZ='Africa/Cairo' date) > $HOME/api

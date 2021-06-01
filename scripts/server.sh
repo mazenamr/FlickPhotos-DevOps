@@ -5,7 +5,7 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install npm nodejs nginx certbot python3-certbot-nginx git
+apt-get -y install certbot git msmtprc nginx nodejs npm python3-certbot-nginx
 
 # install npm packages
 npm install -g apidocs pm2
@@ -21,6 +21,9 @@ ssh-keyscan -H github.com >> .ssh/known_hosts
 
 # get secrets
 git clone git@git.flick.photos:secrets.git
+
+# setup smtp
+cp secrets/settings/msmtprc /etc/
 
 # add ssh key
 cp secrets/ssh/* .ssh/

@@ -5,7 +5,7 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install certbot git msmtprc nginx nodejs npm python3-certbot-nginx
+apt-get -y install certbot git msmtp nginx nodejs npm python3-certbot-nginx
 
 # install npm packages
 npm install -g apidocs pm2

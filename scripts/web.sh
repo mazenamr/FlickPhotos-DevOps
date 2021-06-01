@@ -28,7 +28,8 @@ rm -rf /var/www/web/*
 
 cp -r build/* /var/www/web/
 
-cd /var/www/web
-pm2 -s serve build 4000 --spa
+pm2 -s delete static-page-server-4000
+pm2 -s serve /var/www/web 4000 --spa
+pm2 -s save
 
 echo "Deployed at $(TZ='Africa/Cairo' date)" >> $HOME/logs/web

@@ -1,6 +1,5 @@
 name: CI
 
-# Runs on pushes and pull requests on main
 on:
   push:
     branches: [ main ]
@@ -11,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,9 +18,8 @@ jobs:
         run: |
           mkdir ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan -H flick.photos >> .ssh/known_hosts
-          ssh-keyscan -H github.com >> .ssh/known_hosts
-          cp secrets/ssh/* .ssh/
+          ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519

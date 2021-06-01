@@ -34,4 +34,4 @@ pm2 -s delete static-page-server-4000
 pm2 -s serve /var/www/web 4000 --spa
 pm2 -s save
 
-echo "Deployed at [$(TZ='Africa/Cairo' date)"] >> $HOME/logs/time/web
+echo "Deployed at [$(TZ='Africa/Cairo' date)]" | tee -a "$HOME/logs/time/web"

@@ -33,4 +33,4 @@ rm -rf /var/www/apidocs/*
 
 cp -r build/* /var/www/apidocs/
 
-echo "Deployed at [$(TZ='Africa/Cairo' date)]" >> $HOME/logs/time/apidocs
+echo "Deployed at [$(TZ='Africa/Cairo' date)]" | tee -a "$HOME/logs/time/apidocs"

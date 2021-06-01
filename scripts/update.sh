@@ -3,6 +3,13 @@
 cd $HOME
 
 [ ! -d "logs" ] && mkdir logs
+cd logs
+[ ! -d "time" ] && mkdir time
+[ ! -d "api" ] && mkdir api
+[ ! -d "apidocs" ] && mkdir apidocs
+[ ! -d "web" ] && mkdir web
+
+cd $HOME
 
 [ ! -d "flags" ] && mkdir flags
 rm -rf flags/*
@@ -15,6 +22,7 @@ git checkout main
 git pull origin
 
 cd $HOME
+
 [ ! -d "secrets" ] && git clone git@git.flick.photos:secrets.git
 cd secrets
 git clean -fxd

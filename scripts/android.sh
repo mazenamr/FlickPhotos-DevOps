@@ -22,7 +22,7 @@ touch $HOME/flags/android-build.lck
 gradle wrapper | tee -a "$HOME/logs/android/build_$timestamp" && ./gradlew clean | tee -a "$HOME/logs/android/build_$timestamp" && ./gradlew assembleDebug | tee -a "$HOME/logs/android/build_$timestamp" && rm $HOME/flags/android-build.lck
 
 [ -f "$HOME/flags/android-build.lck" ] &&
-    # echo -e "Subject: Android Build Failed\nAndroid build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
+    echo -e "Subject: Android Build Failed\nAndroid build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     exit -1
 
 # test
@@ -31,12 +31,12 @@ touch $HOME/flags/android-test.lck
 echo "android test successfull" | tee -a "$HOME/logs/android/test_$timestamp" && rm $HOME/flags/android-test.lck
 
 [ -f "$HOME/flags/android-test.lck" ] &&
-    # echo -e "Subject: Android Tests Failed\nAndroid tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
+    echo -e "Subject: Android Tests Failed\nAndroid tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     exit -1
 
 # deploy
 [ ! -d "/var/www/files" ] && mkdir /var/www/files
 rm -rf /var/www/files/*
 
-cd ../build/app/outputs/flutter-apk/app-debug.apk /var/www/files/release.apk
+cp ../build/app/outputs/flutter-apk/app-debug.apk /var/www/files/release.apk
 echo "Deployed at [$(TZ='Africa/Cairo' date)]" | tee -a "$HOME/logs/time/android"

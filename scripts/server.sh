@@ -7,6 +7,22 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
+# setup ssh
+mkdir .ssh
+chmod 700 .ssh
+ssh-keyscan -H git.flick.photos >> .ssh/known_hosts
+ssh-keyscan -H github.com >> .ssh/known_hosts
+
+# get secrets
+git clone git@git.flick.photos:secrets.git
+
+# add ssh key
+cp secrets/ssh/* .ssh/
+chmod 600 .ssh/id_ed25519
+chmod 644 .ssh/id_ed25519.pub
+cat .ssh/id_ed25519.pub >> .ssh/authorized_keys
+ssh-add .ssh/id_ed25519
+
 # install npm packages
 npm install -g apidocs pm2
 
@@ -24,28 +40,11 @@ snap install androidsdk
 export PATH="$PATH:/snap/bin"
 yes | androidsdk --licenses
 
-# setup ssh
-mkdir .ssh
-chmod 700 .ssh
-ssh-keyscan -H git.flick.photos >> .ssh/known_hosts
-ssh-keyscan -H github.com >> .ssh/known_hosts
-
-# get secrets
-git clone git@git.flick.photos:secrets.git
-
 # setup smtp
 cp secrets/settings/msmtprc /etc/
 
-# add ssh key
-cp secrets/ssh/* .ssh/
-chmod 600 .ssh/id_ed25519
-chmod 644 .ssh/id_ed25519.pub
-cat .ssh/id_ed25519.pub >> .ssh/authorized_keys
-ssh-add .ssh/id_ed25519
-
-# clone repos
+# get files
 git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
-git clone git@github.com:MuhabCodes/Flickr-Photos.git main
 
 # setup nginx
 cp files/nginx/api /etc/nginx/sites-available/

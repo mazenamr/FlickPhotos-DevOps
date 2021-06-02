@@ -25,6 +25,7 @@ git pull origin
 cd $HOME
 
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R "git.flick.photos"
+ssh-keyscan -H git.flick.photos >> $HOME/.ssh/known_hosts
 [ ! -d "secrets" ] && git clone git@git.flick.photos:secrets.git
 cd secrets
 git clean -fxd

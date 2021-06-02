@@ -5,7 +5,7 @@ timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
 cd $HOME/main
 
 # setup
-cd docs
+cd NewDocs
 mkdir build
 [ ! -d "build" ] && mkdir build
 rm -rf build/*

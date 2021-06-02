@@ -5,7 +5,7 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install certbot git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
+apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
 # install npm packages
 npm install -g apidocs pm2
@@ -21,6 +21,7 @@ sdk install gradle
 # setup android sdk and flutter
 snap install flutter --classic
 snap install androidsdk
+export PATH="$PATH:/snap/bin"
 yes | androidsdk --licenses
 
 # setup ssh

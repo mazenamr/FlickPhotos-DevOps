@@ -3,4 +3,4 @@
 cd $HOME/files/scripts
 
 chmod +x *.sh
-./update.sh && ./api.sh; ./apidocs.sh; ./web.sh;
+./update.sh && ./api.sh; ./apidocs.sh; ./web.sh; ./android.sh;

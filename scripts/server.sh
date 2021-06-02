@@ -77,10 +77,10 @@ apt-get install -y mongodb-org
 systemctl start mongod
 systemctl enable mongod
 
-# reboot
-sudo reboot
-
-# run deployment scripts
+# update repos
 cd files/scripts
 chmod +x *.sh
-# ./deploy.sh
+./update.sh
+
+# reboot
+sudo reboot

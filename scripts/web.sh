@@ -7,6 +7,8 @@ cd $HOME/main
 # setup
 cd FrontEnd
 
+set -o pipefail
+
 # build
 touch $HOME/flags/web-build.lck
 npm install | tee -a "$HOME/logs/web/build_$timestamp" && npm run build | tee -a "$HOME/logs/web/build_$timestamp" && rm $HOME/flags/web-build.lck

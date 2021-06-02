@@ -17,6 +17,8 @@ elif [ ! -f "local.properties" ]; then
     exit -1
 fi
 
+set -o pipefail
+
 # build
 touch $HOME/flags/android-build.lck
 gradle wrapper | tee -a "$HOME/logs/android/build_$timestamp" && ./gradlew clean | tee -a "$HOME/logs/android/build_$timestamp" && ./gradlew assembleDebug | tee -a "$HOME/logs/android/build_$timestamp" && rm $HOME/flags/android-build.lck

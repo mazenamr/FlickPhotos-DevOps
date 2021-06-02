@@ -10,6 +10,8 @@ mkdir build
 [ ! -d "build" ] && mkdir build
 rm -rf build/*
 
+set -o pipefail
+
 # build
 touch $HOME/flags/apidocs-build.lck
 npm install | tee -a "$HOME/logs/apidocs/build_$timestamp" && npx apidoc -e node_modules/ -o build/ | tee -a "$HOME/logs/apidocs/build_$timestamp" && rm $HOME/flags/apidocs-build.lck

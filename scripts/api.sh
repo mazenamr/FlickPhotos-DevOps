@@ -15,6 +15,8 @@ elif [ ! -f "secret/.env" ]; then
     exit -1
 fi
 
+set -o pipefail
+
 # build
 touch $HOME/flags/api-build.lck
 npm install | tee -a "$HOME/logs/api/build_$timestamp" && rm $HOME/flags/api-build.lck

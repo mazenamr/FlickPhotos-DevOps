@@ -11,7 +11,7 @@ cd Backend
 if [ -f "$HOME/secrets/api/.env" ]; then
     cp $HOME/secrets/api/.env secret/.env
 elif [ ! -f "secret/.env" ]; then
-    echo "secrets not found"
+    echo ".env not found"
     exit -1
 fi
 

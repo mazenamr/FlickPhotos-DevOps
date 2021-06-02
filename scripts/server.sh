@@ -5,13 +5,23 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install certbot git msmtp nginx nodejs npm python3-certbot-nginx
+apt-get -y install certbot git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
 # install npm packages
 npm install -g apidocs pm2
 
 # setup pm2
 pm2 startup systemd
+
+# setup gradle
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk install gradle
+
+# setup android sdk and flutter
+snap install flutter --classic
+snap install androidsdk
+yes | androidsdk --licenses
 
 # setup ssh
 mkdir .ssh
@@ -69,4 +79,4 @@ systemctl enable mongod
 # run deployment scripts
 cd files/scripts
 chmod +x *.sh
-./deploy.sh
+# ./deploy.sh

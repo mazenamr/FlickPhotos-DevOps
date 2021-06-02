@@ -8,6 +8,7 @@ cd logs
 [ ! -d "api" ] && mkdir api
 [ ! -d "apidocs" ] && mkdir apidocs
 [ ! -d "web" ] && mkdir web
+[ ! -d "android" ] && mkdir android
 
 cd $HOME
 
@@ -23,6 +24,7 @@ git pull origin
 
 cd $HOME
 
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "git.flick.photos"
 [ ! -d "secrets" ] && git clone git@git.flick.photos:secrets.git
 cd secrets
 git clean -fxd

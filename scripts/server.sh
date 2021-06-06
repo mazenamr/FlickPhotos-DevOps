@@ -5,7 +5,12 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # setup ssh
 mkdir .ssh
@@ -49,10 +54,10 @@ git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
 # setup nginx
 cp files/nginx/api /etc/nginx/sites-available/
 cp files/nginx/web /etc/nginx/sites-available/
+cp files/nginx/files /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
-# ln -sf /etc/nginx/sites-available/mail /etc/nginx/sites-available/mail
-# ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-available/files
+ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-enabled/files
 service nginx restart
 
 # disable firewall
@@ -65,8 +70,9 @@ iptables -F
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
 # certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "files.flick.photos" -d "mail.flick.photos"
-certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
-certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
+# certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
+# certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
+certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
@@ -76,10 +82,10 @@ apt-get install -y mongodb-org
 systemctl start mongod
 systemctl enable mongod
 
-# update repos
+# deploy
 cd files/scripts
 chmod +x *.sh
-./update.sh
+./deploy.sh
 
 # reboot
 sudo reboot

@@ -8,17 +8,86 @@ on:
   workflow_dispatch:
 
 jobs:
-  Deploy:
+  Update Repos:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy
+      - name: Setup SSH
         run: |
           mkdir ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh root@flick.photos "~/files/scripts/deploy.sh"
+          ssh root@flick.photos "~/files/scripts/update.sh"
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
+
+      - name: Update Repos
+        run: ssh root@flick.photos "~/files/scripts/update.sh"
+
+  Deploy API:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh root@flick.photos "~/files/scripts/update.sh"
+
+      - name: Build API
+        run: ssh root@flick.photos "~/files/scripts/api-build.sh"
+
+      - name: Test API
+        run: ssh root@flick.photos "~/files/scripts/api-test.sh"
+
+      - name: Deploy API
+        run: ssh root@flick.photos "~/files/scripts/api-deploy.sh"
+
+  Deploy API Docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh root@flick.photos "~/files/scripts/update.sh"
+
+      - name: Build API
+        run: ssh root@flick.photos "~/files/scripts/apidocs-build.sh"
+
+      - name: Test API
+        run: ssh root@flick.photos "~/files/scripts/apidocs-test.sh"
+
+      - name: Deploy API
+        run: ssh root@flick.photos "~/files/scripts/apidocs-deploy.sh"
+
+  Deploy API:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh root@flick.photos "~/files/scripts/update.sh"
+
+      - name: Build API
+        run: ssh root@flick.photos "~/files/scripts/web-build.sh"
+
+      - name: Test API
+        run: ssh root@flick.photos "~/files/scripts/web-test.sh"
+
+      - name: Deploy API
+        run: ssh root@flick.photos "~/files/scripts/web-deploy.sh"

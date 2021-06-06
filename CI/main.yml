@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Update Repos:
+  UpdateRepos:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,15 +19,15 @@ jobs:
           ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh root@flick.photos "~/files/scripts/update.sh"
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
 
       - name: Update Repos
         run: ssh root@flick.photos "~/files/scripts/update.sh"
 
-  Deploy API:
+  DeployAPI:
     runs-on: ubuntu-latest
+    needs: UpdateRepos
 
     steps:
       - name: Setup SSH
@@ -37,7 +37,8 @@ jobs:
           ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh root@flick.photos "~/files/scripts/update.sh"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
       - name: Build API
         run: ssh root@flick.photos "~/files/scripts/api-build.sh"
@@ -48,8 +49,9 @@ jobs:
       - name: Deploy API
         run: ssh root@flick.photos "~/files/scripts/api-deploy.sh"
 
-  Deploy API Docs:
+  DeployAPIDocs:
     runs-on: ubuntu-latest
+    needs: UpdateRepos
 
     steps:
       - name: Setup SSH
@@ -59,19 +61,21 @@ jobs:
           ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh root@flick.photos "~/files/scripts/update.sh"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
-      - name: Build API
+      - name: Build API Docs
         run: ssh root@flick.photos "~/files/scripts/apidocs-build.sh"
 
-      - name: Test API
+      - name: Test API Docs
         run: ssh root@flick.photos "~/files/scripts/apidocs-test.sh"
 
-      - name: Deploy API
+      - name: Deploy API Docs
         run: ssh root@flick.photos "~/files/scripts/apidocs-deploy.sh"
 
-  Deploy API:
+  DeployWeb:
     runs-on: ubuntu-latest
+    needs: UpdateRepos
 
     steps:
       - name: Setup SSH
@@ -81,13 +85,14 @@ jobs:
           ssh-keyscan -H flick.photos >> ~/.ssh/known_hosts
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh root@flick.photos "~/files/scripts/update.sh"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
-      - name: Build API
+      - name: Build Web
         run: ssh root@flick.photos "~/files/scripts/web-build.sh"
 
-      - name: Test API
+      - name: Test Web
         run: ssh root@flick.photos "~/files/scripts/web-test.sh"
 
-      - name: Deploy API
+      - name: Deploy Web
         run: ssh root@flick.photos "~/files/scripts/web-deploy.sh"

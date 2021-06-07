@@ -19,6 +19,7 @@ if [ -f "$HOME/secrets/api/.env" ]
 elif [ ! -f "secret/.env" ]; then
     echo ".env not found"
     exit -1
+fi
 if [ -f "$HOME/secrets/api/serviceAccountKey.json" ]
     cp $HOME/secrets/api/serviceAccountKey.json secret/serviceAccountKey.json
 elif [ ! -f "secret/serviceAccountKey.json" ]; then

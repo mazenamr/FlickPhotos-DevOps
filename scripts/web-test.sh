@@ -21,4 +21,5 @@ echo "web test successfull" | tee -a "$HOME/logs/web/test_$timestamp" &&
 [ -f $lock ] &&
     echo -e "Subject: Web Tests Failed\nWeb tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "Web tested at [$(TZ='Africa/Cairo' date)]"

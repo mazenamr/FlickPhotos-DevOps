@@ -23,4 +23,5 @@ npm install | tee -a "$HOME/logs/apidocs/build_$timestamp" &&
 [ -f $lock ] &&
     echo -e "Subject: API Docs Build Failed\nAPI docs build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "API Docs built at [$(TZ='Africa/Cairo' date)]"

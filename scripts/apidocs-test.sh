@@ -21,4 +21,5 @@ echo "api docs test successfull" | tee -a "$HOME/logs/apidocs/test_$timestamp" &
 [ -f $lock ] &&
     echo -e "Subject: API Docs Tests Failed\nAPI docs tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "API Docs tested at [$(TZ='Africa/Cairo' date)]"

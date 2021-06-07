@@ -21,4 +21,5 @@ echo "api test successfull" | tee -a "$HOME/logs/api/test_$timestamp" &&
 [ -f $lock ] &&
     echo -e "Subject: API Tests Failed\nAPI tests failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "API tested at [$(TZ='Africa/Cairo' date)]"

@@ -29,4 +29,5 @@ npm install | tee -a "$HOME/logs/api/build_$timestamp" &&
 [ -f $lock ] &&
     echo -e "Subject: API Build Failed\nAPI build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "API built at [$(TZ='Africa/Cairo' date)]"

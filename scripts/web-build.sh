@@ -21,4 +21,5 @@ npm install | tee -a "$HOME/logs/web/build_$timestamp" &&
 [ -f $lock ] &&
     echo -e "Subject: Web Build Failed\nWeb build failed at $(TZ='Africa/Cairo' date)" | msmtp admin@flick.photos &&
     rm $lock &&
-    exit -1
+    exit -1 ||
+    echo "Web built at [$(TZ='Africa/Cairo' date)]"

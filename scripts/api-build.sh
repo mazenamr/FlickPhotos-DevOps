@@ -14,12 +14,12 @@ cd Backend
 
 # get secrets
 [ ! -d "secret" ] && mkdir secret
-if [ -f "$HOME/secrets/api/.env"
+if [ -f "$HOME/secrets/api/.env" ]
     cp $HOME/secrets/api/.env secret/.env
 elif [ ! -f "secret/.env" ]; then
     echo ".env not found"
     exit -1
-if [ -f "$HOME/secrets/api/serviceAccountKey.json"
+if [ -f "$HOME/secrets/api/serviceAccountKey.json" ]
     cp $HOME/secrets/api/serviceAccountKey.json secret/serviceAccountKey.json
 elif [ ! -f "secret/serviceAccountKey.json" ]; then
     echo "serviceAccountKey.json not found"

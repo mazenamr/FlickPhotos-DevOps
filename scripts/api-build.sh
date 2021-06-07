@@ -3,8 +3,9 @@
 timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
 lock="$HOME/flags/api-build.lck"
 
-cd $HOME/main
-[ ! -d "main" ] && ./files/scripts/update.sh || exit -1
+cd $HOME
+[ ! -d "main" ] && (./files/scripts/update.sh || exit -1)
+cd main
 
 # setup
 set -o pipefail

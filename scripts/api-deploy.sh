@@ -1,7 +1,8 @@
 #!/bin/bash
 
-cd $HOME/main
-[ ! -d "main" ] && ./files/scripts/api-test.sh || exit -1
+cd $HOME
+[ ! -d "main" ] && (./files/scripts/api-test.sh || exit -1)
+cd main
 
 # setup
 set -o pipefail

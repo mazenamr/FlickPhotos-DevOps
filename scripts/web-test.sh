@@ -3,8 +3,9 @@
 timestamp=$(TZ='Africa/Cairo' date +"%Y-%m-%d_%T")
 lock="$HOME/flags/web-test.lck"
 
-cd $HOME/main
-[ ! -d "main" ] && ./files/scripts/web-build.sh || exit -1
+cd $HOME
+[ ! -d "main" ] && (./files/scripts/web-build.sh || exit -1)
+cd main
 
 # setup
 set -o pipefail

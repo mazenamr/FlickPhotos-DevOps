@@ -12,10 +12,11 @@ set -o pipefail
 
 cd Frontend
 
-nvm use 14.16.1
-
 # test
 touch $lock
+
+nvm use 14.16.1
+
 # no tests yet so just echo
 echo "web test successfull" | tee -a "$HOME/logs/web/test_$timestamp" &&
     rm $lock

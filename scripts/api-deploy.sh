@@ -9,13 +9,13 @@ set -o pipefail
 
 cd Backend
 
-nvm use 16.1.0
-
 # deploy
 [ ! -d "/var/www/api" ] && mkdir /var/www/api
 rm -rf /var/www/api/*
 
 cp -r ./* /var/www/api/
+
+nvm use 16.1.0
 
 cd /var/www/api
 pm2 -s delete server

@@ -12,10 +12,11 @@ set -o pipefail
 
 cd NewDocs
 
-nvm use 16.1.0
-
 # test
 touch $lock
+
+nvm use 16.1.0
+
 # no tests yet so just echo
 echo "api docs test successfull" | tee -a "$HOME/logs/apidocs/test_$timestamp" &&
     rm $lock

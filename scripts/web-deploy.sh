@@ -9,13 +9,13 @@ set -o pipefail
 
 cd Frontend
 
-nvm use 14.16.1
-
 # deploy
 [ ! -d "/var/www/web" ] && mkdir /var/www/web
 rm -rf /var/www/web/*
 
 cp -r build/* /var/www/web/
+
+nvm use 16.1.0
 
 pm2 -s delete static-page-server-4000
 pm2 -s serve /var/www/web 4000 --spa

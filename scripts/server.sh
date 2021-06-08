@@ -90,7 +90,7 @@ systemctl enable mongod
 # deploy
 cd files/scripts
 chmod +x *.sh
-# ./deploy.sh
+./deploy.sh
 
-# reboot
-# sudo reboot
+# logout
+sudo logout

@@ -12,10 +12,11 @@ set -o pipefail
 
 cd Backend
 
-nvm use 16.1.0
-
 # test
 touch $lock
+
+nvm use 16.1.0
+
 # no tests yet so just echo
 echo "api test successfull" | tee -a "$HOME/logs/api/test_$timestamp" &&
     rm $lock

@@ -12,13 +12,14 @@ set -o pipefail
 
 cd NewDocs
 
-nvm use 16.1.0
-
 [ ! -d "build" ] && mkdir build
 rm -rf build/*
 
 # build
 touch $lock
+
+nvm use 16.1.0
+
 npm install | tee -a "$HOME/logs/apidocs/build_$timestamp" &&
     npx apidoc -e node_modules/ -o build/ | tee -a "$HOME/logs/apidocs/build_$timestamp" &&
     rm $lock

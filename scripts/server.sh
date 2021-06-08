@@ -109,11 +109,13 @@ cp secrets/nginx/.htpasswd /etc/nginx/.htpasswd
 cp files/nginx/api /etc/nginx/sites-available/
 cp files/nginx/web /etc/nginx/sites-available/
 cp files/nginx/files /etc/nginx/sites-available/
+cp files/nginx/node /etc/nginx/sites-available/
 # cp files/nginx/prometheus /etc/nginx/sites-available/
 # cp files/nginx/grafana /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-enabled/files
+ln -sf /etc/nginx/sites-available/node /etc/nginx/sites-enabled/node
 # ln -sf /etc/nginx/sites-available/prometheus /etc/nginx/sites-enabled/prometheus
 # ln -sf /etc/nginx/sites-available/grafana /etc/nginx/sites-enabled/grafana
 cp -f files/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -128,8 +130,7 @@ iptables -F
 # setup ssl
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
 # certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
-# certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "prometheus.flick.photos" -d "grafana.flick.photos"
-certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos"
+certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "node.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -

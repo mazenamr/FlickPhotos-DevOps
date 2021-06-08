@@ -3,7 +3,7 @@ server {
 
 	index index.html index.htm;
 
-	server_name graphana.flick.photos;
+	server_name grafana.flick.photos;
 
 	location / {
 		proxy_pass http://localhost:3000;

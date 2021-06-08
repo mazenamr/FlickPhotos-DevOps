@@ -64,6 +64,7 @@ cp files/nginx/files /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-enabled/files
+cp -f files/nginx/nginx.conf /etc/nginx/nginx.conf
 service nginx restart
 
 # disable firewall

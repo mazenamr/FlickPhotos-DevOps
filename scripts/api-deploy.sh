@@ -9,6 +9,10 @@ set -o pipefail
 
 cd Backend
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # deploy
 [ ! -d "/var/www/api" ] && mkdir /var/www/api
 rm -rf /var/www/api/*

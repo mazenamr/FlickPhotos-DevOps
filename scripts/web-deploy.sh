@@ -7,7 +7,7 @@ cd main
 # setup
 set -o pipefail
 
-cd FrontEnd
+cd Frontend
 
 # deploy
 [ ! -d "/var/www/web" ] && mkdir /var/www/web

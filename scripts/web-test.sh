@@ -10,7 +10,7 @@ cd main
 # setup
 set -o pipefail
 
-cd FrontEnd
+cd Frontend
 
 # test
 touch $lock

@@ -31,6 +31,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm install 14.16.1
 nvm install 16.1.0
+nvm alias default 16.1.0
 
 # install npm packages
 nvm use 16.1.0

@@ -7,14 +7,6 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
-# install node
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install 14.16.1
-nvm install 16.3.1
-
 # setup ssh
 mkdir .ssh
 chmod 700 .ssh
@@ -29,24 +21,34 @@ cp secrets/ssh/* .ssh/
 chmod 600 .ssh/id_ed25519
 chmod 644 .ssh/id_ed25519.pub
 cat .ssh/id_ed25519.pub >> .ssh/authorized_keys
+eval `ssh-agent -s`
 ssh-add .ssh/id_ed25519
 
+# install node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm install 14.16.1
+nvm install 16.1.0
+
 # install npm packages
+nvm use 16.1.0
 npm install -g apidocs pm2
 
 # setup pm2
 pm2 startup systemd
 
-# setup gradle
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk install gradle
+# # setup gradle
+# curl -s "https://get.sdkman.io" | bash
+# source "$HOME/.sdkman/bin/sdkman-init.sh"
+# sdk install gradle
 
-# setup android sdk and flutter
-snap install flutter --classic
-snap install androidsdk
-export PATH="$PATH:/snap/bin"
-yes | androidsdk --licenses
+# # setup android sdk and flutter
+# snap install flutter --classic
+# snap install androidsdk
+# export PATH="$PATH:/snap/bin"
+# yes | androidsdk --licenses
 
 # setup smtp
 cp secrets/settings/msmtprc /etc/

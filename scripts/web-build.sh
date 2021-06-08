@@ -12,6 +12,8 @@ set -o pipefail
 
 cd Frontend
 
+nvm use 14.16.1
+
 # build
 touch $lock
 npm install | tee -a "$HOME/logs/web/build_$timestamp" &&

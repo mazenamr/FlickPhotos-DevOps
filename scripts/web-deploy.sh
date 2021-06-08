@@ -9,6 +9,8 @@ set -o pipefail
 
 cd Frontend
 
+nvm use 14.16.1
+
 # deploy
 [ ! -d "/var/www/web" ] && mkdir /var/www/web
 rm -rf /var/www/web/*

@@ -9,6 +9,8 @@ set -o pipefail
 
 cd NewDocs
 
+nvm use 16.1.0
+
 # deploy
 [ ! -d "/var/www/apidocs" ] && mkdir /var/www/apidocs
 rm -rf /var/www/apidocs/*

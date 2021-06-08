@@ -12,6 +12,8 @@ set -o pipefail
 
 cd NewDocs
 
+nvm use 16.1.0
+
 # test
 touch $lock
 # no tests yet so just echo

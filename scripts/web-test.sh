@@ -12,6 +12,8 @@ set -o pipefail
 
 cd Frontend
 
+nvm use 14.16.1
+
 # test
 touch $lock
 # no tests yet so just echo

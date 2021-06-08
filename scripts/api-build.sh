@@ -12,6 +12,8 @@ set -o pipefail
 
 cd Backend
 
+nvm use 16.1.0
+
 # get secrets
 [ ! -d "secret" ] && mkdir secret
 

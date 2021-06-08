@@ -95,4 +95,4 @@ chmod +x *.sh
 ./deploy.sh
 
 # logout
-sudo logout
+logout

@@ -5,7 +5,6 @@ cd $HOME
 # install system packages
 apt-get -y update
 apt-get -y upgrade
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
 # install node

@@ -8,9 +8,13 @@ apt-get -y upgrade
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 apt-get -y install certbot default-jre git msmtp nginx nodejs npm python3-certbot-nginx snapd zip
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# install node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm install 14.16.1
+nvm install 16.3.1
 
 # setup ssh
 mkdir .ssh
@@ -85,7 +89,7 @@ systemctl enable mongod
 # deploy
 cd files/scripts
 chmod +x *.sh
-./deploy.sh
+# ./deploy.sh
 
 # reboot
-sudo reboot
+# sudo reboot

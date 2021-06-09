@@ -24,6 +24,9 @@ cat .ssh/id_ed25519.pub >> .ssh/authorized_keys
 eval `ssh-agent -s`
 ssh-add .ssh/id_ed25519
 
+# get files
+git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
+
 # # setup prometheus
 # sudo useradd --no-create-home --shell /bin/false prometheus
 # sudo mkdir /etc/prometheus
@@ -41,10 +44,37 @@ ssh-add .ssh/id_ed25519
 # sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 # sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 # rm -rf prometheus-2.27.1.linux-amd64.tar.gz prometheus-2.27.1.linux-amd64
-# sudo cp ./files/prometheus/prometheus.service /etc/systemd/system/prometheus.service
+# cp ./files/prometheus/prometheus.yml /etc/prometheus/
+# sudo cp ./files/prometheus/prometheus.service /etc/systemd/system/
 # sudo systemctl daemon-reload
 # sudo systemctl start prometheus
 # sudo systemctl enable prometheus
+
+# setup and run node exporter
+sudo useradd --no-create-home --shell /bin/false node_exporter
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
+tar xvf node_exporter-1.1.2.linux-amd64.tar.gz
+sudo cp node_exporter-1.1.2.linux-amd64/node_exporter /usr/local/bin
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+rm -rf node_exporter-1.1.2.linux-amd64.tar.gz node_exporter-1.1.2.linux-amd64
+sudo cp ./files/prometheus/node_exporter.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter
+sudo systemctl enable node_exporter
+
+# setup and run alert manager
+curl -LO https://github.com/prometheus/alertmanager/releases/download/v0.22.2/alertmanager-0.22.2.linux-amd64.tar.gz
+tar xvf alertmanager-0.22.2.linux-amd64.tar.gz
+mv alertmanager-0.22.2.linux-amd64/alertmanager /usr/local/bin/
+mkdir /etc/alertmanager/
+sudo cp ./secrets/settings/alertmanager.yml /etc/alertmanager/
+sudo cp ./files/prometheus/alertrules.yml /etc/prometheus/
+promtool check rules /etc/prometheus/alertrules.yml
+sudo cp ./files/prometheus/alertmanager.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl start alertmanager
+systemctl enable alertmanager
+systemctl status alertmanager
 
 # #set grafana
 # sudo apt-get install -y apt-transport-https
@@ -56,18 +86,6 @@ ssh-add .ssh/id_ed25519
 # sudo systemctl daemon-reload
 # sudo systemctl start grafana-server
 # sudo systemctl enable grafana-server
-
-# setup and run node exporter
-sudo useradd --no-create-home --shell /bin/false node_exporter
-curl -LO https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
-tar xvf node_exporter-1.1.2.linux-amd64.tar.gz
-sudo cp node_exporter-1.1.2.linux-amd64/node_exporter /usr/local/bin
-sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
-rm -rf node_exporter-1.1.2.linux-amd64.tar.gz node_exporter-1.1.2.linux-amd64
-sudo cp ./files/prometheus/node_exporter.service /etc/systemd/system/node_exporter.service
-sudo systemctl daemon-reload
-sudo systemctl start node_exporter
-sudo systemctl enable node_exporter
 
 cd $HOME
 
@@ -101,21 +119,20 @@ pm2 startup systemd
 # setup smtp
 cp secrets/settings/msmtprc /etc/
 
-# get files
-git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
-
 # setup nginx
 cp secrets/nginx/.htpasswd /etc/nginx/.htpasswd
 cp files/nginx/api /etc/nginx/sites-available/
 cp files/nginx/web /etc/nginx/sites-available/
 cp files/nginx/files /etc/nginx/sites-available/
-cp files/nginx/node /etc/nginx/sites-available/
+cp files/nginx/nodeexporter /etc/nginx/sites-available/
+cp files/nginx/alertmanager /etc/nginx/sites-available/
 # cp files/nginx/prometheus /etc/nginx/sites-available/
 # cp files/nginx/grafana /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-enabled/files
-ln -sf /etc/nginx/sites-available/node /etc/nginx/sites-enabled/node
+ln -sf /etc/nginx/sites-available/nodeexporter /etc/nginx/sites-enabled/nodeexporter
+ln -sf /etc/nginx/sites-available/alertmanager /etc/nginx/sites-enabled/alertmanager
 # ln -sf /etc/nginx/sites-available/prometheus /etc/nginx/sites-enabled/prometheus
 # ln -sf /etc/nginx/sites-available/grafana /etc/nginx/sites-enabled/grafana
 cp -f files/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -130,7 +147,7 @@ iptables -F
 # setup ssl
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
 # certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
-certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "node.flick.photos"
+certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "nodeexporter.flick.photos" -d "alertmanager.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
@@ -144,6 +161,3 @@ systemctl enable mongod
 cd files/scripts
 chmod +x *.sh
 ./deploy.sh
-
-# logout
-logout

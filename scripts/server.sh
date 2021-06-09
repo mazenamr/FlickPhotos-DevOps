@@ -62,20 +62,20 @@ sudo systemctl daemon-reload
 sudo systemctl start node_exporter
 sudo systemctl enable node_exporter
 
-# setup and run alert manager
-curl -LO https://github.com/prometheus/alertmanager/releases/download/v0.22.2/alertmanager-0.22.2.linux-amd64.tar.gz
-tar xvf alertmanager-0.22.2.linux-amd64.tar.gz
-sudo mv alertmanager-0.22.2.linux-amd64/alertmanager /usr/local/bin/
-sudo mv alertmanager-0.22.2.linux-amd64/amtool /usr/local/bin/
-sudo mkdir /etc/alertmanager/
-sudo cp ./secrets/settings/alertmanager.yml /etc/alertmanager/
-sudo cp ./files/prometheus/alertrules.yml /etc/prometheus/
-promtool check rules /etc/prometheus/alertrules.yml
-rm -rf alertmanager-0.22.2.linux-amd64.tar.gz alertmanager-0.22.2.linux-amd64
-sudo cp ./files/prometheus/alertmanager.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl start alertmanager
-sudo systemctl enable alertmanager
+# # setup and run alert manager
+# curl -LO https://github.com/prometheus/alertmanager/releases/download/v0.22.2/alertmanager-0.22.2.linux-amd64.tar.gz
+# tar xvf alertmanager-0.22.2.linux-amd64.tar.gz
+# sudo mv alertmanager-0.22.2.linux-amd64/alertmanager /usr/local/bin/
+# sudo mv alertmanager-0.22.2.linux-amd64/amtool /usr/local/bin/
+# sudo mkdir /etc/alertmanager/
+# sudo cp ./secrets/settings/alertmanager.yml /etc/alertmanager/
+# sudo cp ./files/prometheus/alertrules.yml /etc/prometheus/
+# promtool check rules /etc/prometheus/alertrules.yml
+# rm -rf alertmanager-0.22.2.linux-amd64.tar.gz alertmanager-0.22.2.linux-amd64
+# sudo cp ./files/prometheus/alertmanager.service /etc/systemd/system/
+# sudo systemctl daemon-reload
+# sudo systemctl start alertmanager
+# sudo systemctl enable alertmanager
 
 # #set grafana
 # sudo apt-get install -y apt-transport-https
@@ -125,15 +125,13 @@ cp secrets/nginx/.htpasswd /etc/nginx/.htpasswd
 cp files/nginx/api /etc/nginx/sites-available/
 cp files/nginx/web /etc/nginx/sites-available/
 cp files/nginx/files /etc/nginx/sites-available/
-cp files/nginx/nodeexporter /etc/nginx/sites-available/
-cp files/nginx/alertmanager /etc/nginx/sites-available/
+cp files/nginx/node /etc/nginx/sites-available/
 # cp files/nginx/prometheus /etc/nginx/sites-available/
 # cp files/nginx/grafana /etc/nginx/sites-available/
 ln -sf /etc/nginx/sites-available/web /etc/nginx/sites-enabled/web
 ln -sf /etc/nginx/sites-available/api /etc/nginx/sites-enabled/api
 ln -sf /etc/nginx/sites-available/files /etc/nginx/sites-enabled/files
-ln -sf /etc/nginx/sites-available/nodeexporter /etc/nginx/sites-enabled/nodeexporter
-ln -sf /etc/nginx/sites-available/alertmanager /etc/nginx/sites-enabled/alertmanager
+ln -sf /etc/nginx/sites-available/node /etc/nginx/sites-enabled/node
 # ln -sf /etc/nginx/sites-available/prometheus /etc/nginx/sites-enabled/prometheus
 # ln -sf /etc/nginx/sites-available/grafana /etc/nginx/sites-enabled/grafana
 cp -f files/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -148,7 +146,7 @@ iptables -F
 # setup ssl
 # certbot --nginx --agree-tos --redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos"
 # certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "api.flick.photos"
-certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "nodeexporter.flick.photos" -d "alertmanager.flick.photos"
+certbot --nginx --agree-tos --no-redirect -n -m "admin@flick.photos" --keep --expand -d "flick.photos" -d "www.flick.photos" -d "api.flick.photos" -d "files.flick.photos" -d "node.flick.photos"
 
 # setup mongodb
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -

@@ -3,7 +3,7 @@ server {
 
 	index index.html index.htm;
 
-	server_name nodeexporter.flick.photos;
+	server_name node.flick.photos;
 
 	location / {
 		proxy_pass http://localhost:9100;

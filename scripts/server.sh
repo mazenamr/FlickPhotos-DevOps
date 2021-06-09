@@ -44,7 +44,7 @@ git clone git@github.com:mazenamr/FlickPhotos-DevOps.git files
 # sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 # sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 # rm -rf prometheus-2.27.1.linux-amd64.tar.gz prometheus-2.27.1.linux-amd64
-# cp ./files/prometheus/prometheus.yml /etc/prometheus/
+# sudo cp ./files/prometheus/prometheus.yml /etc/prometheus/
 # sudo cp ./files/prometheus/prometheus.service /etc/systemd/system/
 # sudo systemctl daemon-reload
 # sudo systemctl start prometheus

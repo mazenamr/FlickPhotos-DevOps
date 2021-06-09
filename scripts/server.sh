@@ -65,16 +65,17 @@ sudo systemctl enable node_exporter
 # setup and run alert manager
 curl -LO https://github.com/prometheus/alertmanager/releases/download/v0.22.2/alertmanager-0.22.2.linux-amd64.tar.gz
 tar xvf alertmanager-0.22.2.linux-amd64.tar.gz
-mv alertmanager-0.22.2.linux-amd64/alertmanager /usr/local/bin/
-mkdir /etc/alertmanager/
+sudo mv alertmanager-0.22.2.linux-amd64/alertmanager /usr/local/bin/
+sudo mkdir /etc/alertmanager/
 sudo cp ./secrets/settings/alertmanager.yml /etc/alertmanager/
 sudo cp ./files/prometheus/alertrules.yml /etc/prometheus/
 promtool check rules /etc/prometheus/alertrules.yml
+rm -rf alertmanager-0.22.2.linux-amd64.tar.gz alertmanager-0.22.2.linux-amd64
 sudo cp ./files/prometheus/alertmanager.service /etc/systemd/system/
-systemctl daemon-reload
-systemctl start alertmanager
-systemctl enable alertmanager
-systemctl status alertmanager
+sudo systemctl daemon-reload
+sudo systemctl start alertmanager
+sudo systemctl enable alertmanager
+sudo systemctl status alertmanager
 
 # #set grafana
 # sudo apt-get install -y apt-transport-https
